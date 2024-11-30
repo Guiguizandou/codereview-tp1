@@ -20,10 +20,11 @@ public class AwesomePasswordChecker {
   private final List<double[]> clusterCenters = new ArrayList<>();
 
   /**
-   * Retourne une instance en la créant si elle n'existe pas.
-   * @param file un fichier
-   * @return une instance
-   * @throws IOException TODO
+   * Retourne une instance en la créant si elle n'existe pas, en utilisant un fichier spécifié.
+   * 
+   * @param file Le fichier à utiliser pour créer l'instance.
+   * @return L'instance d'AwesomePasswordChecker.
+   * @throws IOException Si une erreur de lecture du fichier se produit.
    */
   public static AwesomePasswordChecker getInstance(File file) throws IOException {
     if (instance == null) {
@@ -33,9 +34,10 @@ public class AwesomePasswordChecker {
   }
   
   /**
-   * Retourne une instance.
-   * @return une instance
-   * @throws IOException TODO
+   * Retourne une instance en la créant si elle n'existe pas, en utilisant un fichier prédéfini.
+   * 
+   * @return L'instance d'AwesomePasswordChecker.
+   * @throws IOException Si une erreur de lecture du fichier se produit.
    */
   public static AwesomePasswordChecker getInstance() throws IOException {
     if (instance == null) {
@@ -46,9 +48,10 @@ public class AwesomePasswordChecker {
   }
   
   /**
-   * TODO.
-   * @param is TODO
-   * @throws IOException TODO
+   * Constructeur qui lit un flux d'entrée et ajoute des centres de clusters à la collection.
+   * 
+   * @param is Le flux d'entrée (InputStream) à lire.
+   * @throws IOException Si une erreur d'entrée/sortie se produit.
    */
   private AwesomePasswordChecker(InputStream is) throws IOException {
     try (BufferedReader br = new BufferedReader(new InputStreamReader(is))) {
@@ -66,9 +69,10 @@ public class AwesomePasswordChecker {
   }
 
   /**
-   * TODO.
-   * @param password TODO
-   * @return TODO
+   * Masque les caractères d'un mot de passe et les classe dans un tableau d'entiers.
+   * 
+   * @param password Le mot de passe à masquer.
+   * @return Un tableau d'entiers représentant le masque.
    */
   public int[] maskAff(String password) {
     int[] maskArray = new int[28]; 
@@ -129,11 +133,12 @@ public class AwesomePasswordChecker {
   }
 
   /**
-   * TODO.
-   * @param password TODO
-   * @return TODO
+   * Calcule la distance minimale entre un mot de passe et les centres de clusters.
+   * 
+   * @param password Le mot de passe à comparer.
+   * @return La distance minimale entre le mot de passe et les centres de clusters.
    */
-  public double getDIstance(String password) {
+  public double getDistance(String password) {
     int[] maskArray = maskAff(password);
     double minDistance = Double.MAX_VALUE;
     for (double[] center : clusterCenters) {
@@ -143,10 +148,11 @@ public class AwesomePasswordChecker {
   }
 
   /**
-   * TODO.
-   * @param distA TODO
-   * @param distB TODO
-   * @return TODO
+   * Calcule la distance euclidienne entre deux tableaux.
+   * 
+   * @param distA Le premier tableau (int[]).
+   * @param distB Le deuxième tableau (double[]).
+   * @return La distance euclidienne entre distA et distB.
    */
   private double euclideanDistance(int[] distA, double[] distB) {
     double sum = 0;
@@ -157,9 +163,10 @@ public class AwesomePasswordChecker {
   }
 
   /**
-   * TODO.
-   * @param input TODO
-   * @return TODO
+   * Calcule le hash MD5 d'une chaîne d'entrée.
+   * 
+   * @param input La chaîne à hasher.
+   * @return Le hash MD5 sous forme de chaîne hexadécimale.
    */
   @SuppressWarnings("checkstyle:VariableDeclarationUsageDistance")
   public static String computeMD5(String input) {
